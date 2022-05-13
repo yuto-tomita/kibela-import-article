@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
+		"sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "./script",
+    "strict": true,
+		"moduleResolution": "node",
+    "baseUrl": "script",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+		"noEmit": true
+	},
+	"include": ["script/*"],
+  "exclude": ["dist", "node_modules"],
+}
