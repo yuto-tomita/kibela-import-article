@@ -8,5 +8,12 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.14.39",
+    "esbuild-register": "^3.3.2"
+  },
+  "dependencies": {
+    "typescript": "^4.6.4"
+  }
 }
