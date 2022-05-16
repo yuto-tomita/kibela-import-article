@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild ./script/index.ts --bundle --outfile=./dist/main.js"
+    "build": "esbuild ./script/index.ts --bundle --outfile=./dist/main.js",
+    "generate": "graphql-codegen"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "esbuild-register": "^3.3.2"
   },
   "dependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
     "commander": "^9.2.0",
     "graphql": "^16.5.0",
     "graphql-request": "^4.2.0",
