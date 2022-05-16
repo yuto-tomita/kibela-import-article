@@ -1,0 +1,20 @@
+query fetchKibelaArticleContentQuery($first: Int!) {
+	currentUser {
+		latestNotes(first: $first) {
+			nodes {
+				contentTocHtml
+			}
+		}
+	}
+}
+
+query fetchPostNumber($first: Int!) {
+	currentUser {
+		latestNotes(first: $first) {
+			totalCount
+			nodes {
+				contentTocHtml
+			}
+		}
+	}
+}
