@@ -1,0 +1,8 @@
+schema: https://raw.githubusercontent.com/kibela/kibela-api-v1-document/master/schema.graphql
+documents: './script/graphql/fetchKibelaContent.graphql'
+generates: 
+  ./script/graphql/types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
