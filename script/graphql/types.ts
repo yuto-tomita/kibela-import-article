@@ -3345,14 +3345,14 @@ export type FetchKibelaArticleContentQueryQueryVariables = Exact<{
 }>;
 
 
-export type FetchKibelaArticleContentQueryQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', nodes: Array<{ __typename?: 'Note', contentTocHtml: string }> } } | null };
+export type FetchKibelaArticleContentQueryQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', nodes: Array<{ __typename?: 'Note', title: string, contentHtml: string }> } } | null };
 
 export type FetchPostNumberQueryVariables = Exact<{
   first: Scalars['Int'];
 }>;
 
 
-export type FetchPostNumberQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', totalCount: number, nodes: Array<{ __typename?: 'Note', contentTocHtml: string }> } } | null };
+export type FetchPostNumberQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', totalCount: number } } | null };
 
 
 export const FetchKibelaArticleContentQueryDocument = gql`
@@ -3360,7 +3360,8 @@ export const FetchKibelaArticleContentQueryDocument = gql`
   currentUser {
     latestNotes(first: $first) {
       nodes {
-        contentTocHtml
+        title
+        contentHtml
       }
     }
   }
@@ -3371,9 +3372,6 @@ export const FetchPostNumberDocument = gql`
   currentUser {
     latestNotes(first: $first) {
       totalCount
-      nodes {
-        contentTocHtml
-      }
     }
   }
 }
