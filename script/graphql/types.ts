@@ -3354,6 +3354,13 @@ export type FetchPostNumberQueryVariables = Exact<{
 
 export type FetchPostNumberQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', totalCount: number } } | null };
 
+export type FetchFirstKibelaArticleContentQueryQueryVariables = Exact<{
+  first: Scalars['Int'];
+}>;
+
+
+export type FetchFirstKibelaArticleContentQueryQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', nodes: Array<{ __typename?: 'Note', contentHtml: string }> } } | null };
+
 
 export const FetchKibelaArticleContentQueryDocument = gql`
     query fetchKibelaArticleContentQuery($first: Int!) {
@@ -3376,6 +3383,17 @@ export const FetchPostNumberDocument = gql`
   }
 }
     `;
+export const FetchFirstKibelaArticleContentQueryDocument = gql`
+    query fetchFirstKibelaArticleContentQuery($first: Int!) {
+  currentUser {
+    latestNotes(first: 1) {
+      nodes {
+        contentHtml
+      }
+    }
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -3389,6 +3407,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     fetchPostNumber(variables: FetchPostNumberQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FetchPostNumberQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<FetchPostNumberQuery>(FetchPostNumberDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'fetchPostNumber', 'query');
+    },
+    fetchFirstKibelaArticleContentQuery(variables: FetchFirstKibelaArticleContentQueryQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<FetchFirstKibelaArticleContentQueryQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<FetchFirstKibelaArticleContentQueryQuery>(FetchFirstKibelaArticleContentQueryDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'fetchFirstKibelaArticleContentQuery', 'query');
     }
   };
 }
