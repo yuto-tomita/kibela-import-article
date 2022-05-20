@@ -16,3 +16,13 @@ query fetchPostNumber($first: Int!) {
 		}
 	}
 }
+
+query fetchFirstKibelaArticleContentQuery($first: Int!) {
+	currentUser {
+		latestNotes(first: 1) {
+			nodes {
+				contentHtml
+			}
+		}
+	}
+}
