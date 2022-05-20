@@ -21,6 +21,7 @@ query fetchFirstKibelaArticleContentQuery($first: Int!) {
 	currentUser {
 		latestNotes(first: 1) {
 			nodes {
+				title
 				contentHtml
 			}
 		}
