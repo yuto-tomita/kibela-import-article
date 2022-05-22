@@ -3359,7 +3359,7 @@ export type FetchFirstKibelaArticleContentQueryQueryVariables = Exact<{
 }>;
 
 
-export type FetchFirstKibelaArticleContentQueryQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', nodes: Array<{ __typename?: 'Note', contentHtml: string }> } } | null };
+export type FetchFirstKibelaArticleContentQueryQuery = { __typename?: 'Query', currentUser?: { __typename?: 'User', latestNotes: { __typename?: 'NoteConnection', nodes: Array<{ __typename?: 'Note', title: string, contentHtml: string }> } } | null };
 
 
 export const FetchKibelaArticleContentQueryDocument = gql`
@@ -3388,6 +3388,7 @@ export const FetchFirstKibelaArticleContentQueryDocument = gql`
   currentUser {
     latestNotes(first: 1) {
       nodes {
+        title
         contentHtml
       }
     }
