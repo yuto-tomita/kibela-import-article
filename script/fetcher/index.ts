@@ -32,3 +32,16 @@ export const fetchAllKibelaArticle = async () => {
 		console.log(e)
 	}
 }
+
+export const fetchFirstKibelaArticle = async () => {
+	try {
+		const res = await sdk.fetchFirstKibelaArticleContentQuery(
+			{ first: 1 },
+			headers
+		)
+
+		return res.currentUser ? res.currentUser?.latestNotes.nodes : []
+	} catch (e) {
+		console.log(e)
+	}
+}
