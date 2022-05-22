@@ -3386,7 +3386,7 @@ export const FetchPostNumberDocument = gql`
 export const FetchFirstKibelaArticleContentQueryDocument = gql`
     query fetchFirstKibelaArticleContentQuery($first: Int!) {
   currentUser {
-    latestNotes(first: 1) {
+    latestNotes(first: $first) {
       nodes {
         title
         contentHtml
