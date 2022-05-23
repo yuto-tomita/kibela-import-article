@@ -5,7 +5,7 @@ import TurndownService = require('turndown')
 import * as fs from 'fs'
 import inquirer = require('inquirer')
 
-fs.mkdirSync(`${__dirname}/kibela`)
+fs.mkdirSync(`${__dirname}/../kibela`)
 
 const outputFile = (response: {
 	__typename?: "Note";
@@ -21,11 +21,11 @@ const outputFile = (response: {
 	
 			const removeBlank = element.title.replaceAll(' ', '_')
 			const removeSlash = removeBlank.replaceAll('/', '_')
-			fs.appendFile(`${__dirname}/kibela/${removeSlash}.md`, markdown, (err) => {
+			fs.appendFile(`${__dirname}/../kibela/${removeSlash}.md`, markdown, (err) => {
 				if (err) console.log(err)
 			})
 		} else {
-			fs.appendFile(`${__dirname}/kibela/${element.title}.md`, markdown, (err) => {
+			fs.appendFile(`${__dirname}/../kibela/${element.title}.md`, markdown, (err) => {
 				if (err) console.log(err)
 			})
 		}
@@ -46,25 +46,44 @@ inquirer
 			message: '実行するスクリプトを選択してください',
 			choices: [
 				'全てのKibela記事をローカルにインポート',
-				'最新Kibela記事をローカルにインポート'
+				'最新Kibela記事をローカルにインポート',
+				'指定件数、記事をローカルにインポート'
 			]
 		}
 	])
 	.then(answers => {
-		console.log(answers)
+		// if (answers.script === '全てのKibela記事をローカルにインポート') {
+		// 	fetchAllKibelaArticle().then((response) => {
+		// 		if (response) {
+		// 			outputFile(response)
+		// 		}
+		// 	})
+		// } else if (answers.script === '最新Kibela記事をローカルにインポート') {
+		// 	fetchFirstKibelaArticle().then((response) => {
+		// 		if (response) {
+		// 			outputFile(response)
+		// 		}
+		// 	})
+		// }
+		switch (answers.script) {
+			case '全てのKibela記事をローカルにインポート':
+				fetchAllKibelaArticle().then((response) => {
+					if (response) {
+						outputFile(response)
+					}
+				})
+				break
 
-		if (answers.script === '全てのKibela記事をローカルにインポート') {
-			fetchAllKibelaArticle().then((response) => {
-				if (response) {
-					outputFile(response)
-				}
-			})
-		} else if (answers.script === '最新Kibela記事をローカルにインポート') {
-			fetchFirstKibelaArticle().then((response) => {
-				if (response) {
-					outputFile(response)
-				}
-			})
+			case '最新Kibela記事をローカルにインポート':
+				fetchFirstKibelaArticle().then((response) => {
+					if (response) {
+						outputFile(response)
+					}
+				})
+				break
+
+			case '指定件数、記事をローカルにインポート':
+				//
 		}
 	})
 
