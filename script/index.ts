@@ -1,11 +1,17 @@
 import 'dotenv/config'
-import { Command } from 'commander'
-import { fetchAllKibelaArticle, fetchFirstKibelaArticle } from './fetcher'
+import {
+	fetchAllKibelaArticle,
+	fetchFirstKibelaArticle,
+	fetchSpecifiedCountKibelaArticle,
+	postNumber
+} from './fetcher'
 import TurndownService = require('turndown')
 import * as fs from 'fs'
 import inquirer = require('inquirer')
 
-fs.mkdirSync(`${__dirname}/../kibela`)
+if (!fs.existsSync('kibela')) {
+	fs.mkdirSync(`${__dirname}/../kibela`)
+}
 
 const outputFile = (response: {
 	__typename?: "Note";
@@ -35,12 +41,6 @@ const outputFile = (response: {
 inquirer
 	.prompt([
 		{
-			type: 'input',
-			name: 'accessToken',
-			message: 'Kibelaのアクセストークンを入力してください',
-			validate: (input) => !!input.length,
-		},
-		{
 			type: 'list',
 			name: 'script',
 			message: '実行するスクリプトを選択してください',
@@ -52,19 +52,6 @@ inquirer
 		}
 	])
 	.then(answers => {
-		// if (answers.script === '全てのKibela記事をローカルにインポート') {
-		// 	fetchAllKibelaArticle().then((response) => {
-		// 		if (response) {
-		// 			outputFile(response)
-		// 		}
-		// 	})
-		// } else if (answers.script === '最新Kibela記事をローカルにインポート') {
-		// 	fetchFirstKibelaArticle().then((response) => {
-		// 		if (response) {
-		// 			outputFile(response)
-		// 		}
-		// 	})
-		// }
 		switch (answers.script) {
 			case '全てのKibela記事をローカルにインポート':
 				fetchAllKibelaArticle().then((response) => {
@@ -83,9 +70,30 @@ inquirer
 				break
 
 			case '指定件数、記事をローカルにインポート':
-				//
+				inquirer
+					.prompt([
+						{
+							type: 'input',
+							name: 'specifiedCount',
+							message: '何件取得しますか？',
+							validate: (input) => Number(input) > 0,
+						}
+					])
+				.then((response) => {
+					postNumber().then((postCountReponse) => {
+						if (postCountReponse) {
+							if (response.specifiedCount < postCountReponse) {
+								fetchSpecifiedCountKibelaArticle(response.specifiedCount).then((response) => {
+									if (response) {
+										outputFile(response)
+									}
+								})
+							} else {
+								console.error('指定された件数が投稿数を超えています')
+							}
+						}
+					})
+				})
+				break
 		}
 	})
-
-const program = new Command()
-program.parse(process.argv)
