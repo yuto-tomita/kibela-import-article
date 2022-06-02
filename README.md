@@ -36,6 +36,10 @@ https://${YOUR_TEAM_DOMAIN}/api/v1
 ## スクリプト実行
 
 ```shell
+$ yarn
+```
+
+```shell
 $ node -r esbuild-register script/index.ts
 ```
 
